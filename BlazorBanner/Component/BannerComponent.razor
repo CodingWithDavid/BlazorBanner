@@ -1,0 +1,44 @@
+﻿<div class="@bannerStyle">
+    <div class="banner__content">
+        <div class="banner__text">
+            @bannerbody
+            
+        </div>
+        <button class="banner__close" type="button" @onclick="CloseBanner">
+            <span class="material-icons">
+                close
+            </span>
+        </button>
+    </div>
+</div>
+
+<h3> Banner Display Component</h3>
+
+@code{
+
+    [Parameter]
+    public string Message { get; set; }
+
+    private MarkupString bannerbody = new MarkupString();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(Message))
+        {
+            bannerbody = (MarkupString)Message;
+        }
+        else
+        {
+            bannerStyle = "banner_close_display";
+        }
+
+        await Task.CompletedTask;
+    }
+
+    private string bannerStyle = "banner";
+
+    public void CloseBanner()
+    {
+        bannerStyle = "banner_close_display";
+    }
+}
